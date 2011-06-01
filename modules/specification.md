@@ -64,6 +64,12 @@ Guarantees Made by Module Interpreters
             began executing in the current system of modules.
         1.  The ``require.main`` property must be the same value in
             every module.
+    1.  ``require`` must have a ``resolve`` function.
+        1.  ``resolve`` accepts a module identifier as its first and only
+            argument
+        1.  ``resolve`` must return the resolved module identifier
+            corresponding to the given module identifier relative to
+            this module's resolved module identifier.
 1.  an ``exports`` object must exist in a function's lexical scope.
     1.  the ``exports`` object must initially be the same value as
         ``module.exports``.
