@@ -64,6 +64,12 @@ Guarantees Made by Module Interpreters
             began executing in the current system of modules.
         1.  The ``require.main`` property must be the same value in
             every module.
+    1.  ``require`` must have a ``resolve`` function.
+        1.  ``resolve`` accepts a module identifier as its first and only
+            argument
+        1.  ``resolve`` must return the resolved module identifier
+            corresponding to the given module identifier relative to
+            this module's resolved module identifier.
     1.  ``require`` must have an ``async`` function.
         1.  ``async`` must accept an identifier or an array of
             identifiers as its first argument.
@@ -129,18 +135,17 @@ Module Identifiers
 1.  Top-level identifiers are resolved relative to ``""``.
 1.  The ``require`` function in each module resolves relative
     identifiers from the corresponding ``module.id``.
-1.  To resolve a module identifier,
-    1.  an array of terms must be initialized to an empty array.
-    1.  For each ordered term in some ordered module identifiers, from
-        left to right,
-        1.  no action is taken for ``"."`` terms,
-        1.  a term is popped off the end of the array for ``".."``
-            terms, and
-        1.  the term is pushed on the end of the array for all other
-            terms.
+1.  To resolve any path of module identifiers,
+    1.  An array of terms must be initialized to an empty array.
+    1.  For each module identifier in the path of identifiers,
+        1.  Pop off the last term in the array, provided one exists.
+        1.  For each term in a module identifier in order,
+            1.  Take no action if the term is ``"."``.
+            1.  Pop a term off the end of the array if the term is
+                ``".."``.
+            1.  Push the term on the end of the array otherwise.
     1.  The array of terms must be joined with forward slashes, ``"/"``
         to construct the resulting "resolved" identifier.
-
 
 
 Unspecified
