@@ -2,7 +2,6 @@
 To Do
 =====
 
-1.  specifications (the meta-specification specification)
 1.  tests (the unit test specification)
 1.  promises
     1.  thenables
@@ -28,5 +27,6 @@ Done
 1.  modules
     1.  define
     1.  async
+1.  specifications (the meta-specification specification)
 
 
