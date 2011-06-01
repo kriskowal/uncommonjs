@@ -64,6 +64,25 @@ Guarantees Made by Module Interpreters
             began executing in the current system of modules.
         1.  The ``require.main`` property must be the same value in
             every module.
+    1.  ``require`` must have an ``async`` function.
+        1.  ``async`` must accept an identifier or an array of
+            identifiers as its first argument.
+            1.  A single identifier is equivalent to an array with a
+                single identifier.
+        1.  ``async`` accepts an optional ``callback`` function as its
+            second argument.
+        1.  ``async`` accepts an optional ``errback`` function as its
+            third argument.
+        1.  ``async`` must call ``require`` for each module identifier
+            in order
+        1.  ``async`` may wait for each module's transitively required
+            modules to asynchronously load before calling ``require``.
+        1.  If any ``require`` call throws an exception, or if any
+            module cannot be loaded before it is required, ``errback``
+            must be called with the ``Error`` as its argument.
+        1.  If every ``require`` call returns, ``async`` must call
+            ``callback`` with the respective exports for each module
+            identifier as its arguments.
 1.  an ``exports`` object must exist in a function's lexical scope.
     1.  the ``exports`` object must initially be the same value as
         ``module.exports``.
