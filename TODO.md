@@ -8,9 +8,6 @@ To Do
 1.  add promises to modules-async
 1.  bytes, buffers, blobs
 1.  packages
-    1.  ``package.json``
-    1.  mappings
-    1.  dependencies
     1.  registry/catalog
 1.  fs
 1.  io
@@ -29,4 +26,8 @@ Done
     1.  thenables
     1.  promiseSendables
     1.  Q
+1.  packages
+    1.  ``package.json``
+    1.  mappings
+    1.  dependencies
 
