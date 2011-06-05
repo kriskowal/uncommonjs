@@ -30,7 +30,9 @@ Guarantees Made by Module Writers
     guarantee that all modules are loaded before they're required.
     String literals are discoverable before execution by scanning the
     text. The module identified by ``require.main`` is guaranteed to have
-    been loaded axiomatically, so it is a reasonable exception.*
+    been loaded axiomatically, so it is a reasonable exception. If you
+    need to load a module identified by a variable or expression, use
+    ``require.async``.*
 1.  For interoperability with loaders that support the following cases,
     modules must call ``define`` in their first and only module scope
     statement. 
