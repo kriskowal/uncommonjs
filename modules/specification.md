@@ -25,7 +25,14 @@ Guarantees Made by Module Writers
     provided to its lexical scope.
 1.  All calls to ``require`` must be by name from lexical scope.
 1.  All calls to ``require`` must be given a single string literal as
-    the argument.
+    the argument, or the value of ``require.main`` if it is defined.
+    *This rule exists to help asynchronous loader implementations
+    guarantee that all modules are loaded before they're required.
+    String literals are discoverable before execution by scanning the
+    text. The module identified by ``require.main`` is guaranteed to have
+    been loaded axiomatically, so it is a reasonable exception. If you
+    need to load a module identified by a variable or expression, use
+    ``require.async``.*
 1.  For interoperability with loaders that support the following cases,
     modules must call ``define`` in their first and only module scope
     statement. 
