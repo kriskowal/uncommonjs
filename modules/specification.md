@@ -46,6 +46,10 @@ Guarantees Made by Module Writers
     *   modules must be debugged in browsers that do not support
         ``//@sourceURL`` comments **and** (a module build step **or**
         module server that add ``define`` calls are not acceptable).
+1.  ``define`` must be called with a function expression as its
+    argument.  *This permits tools that optimize modules for deployment
+    to browsers to find and inject additional configuration arguments in
+    the ``define`` call*
 1.  Within a ``define`` ``callback``, the variables ``require``,
     ``exports``, and ``module`` must use the corresponding values
     provided as arguments to the callback instead of those received from
