@@ -26,20 +26,29 @@ satisfy in order to function in any module system.
     beyond the scope of this specification and may vary with practical
     limits on a module's portability.*
 1.  A module must only depend on specified behavior of the values
-    provided to its lexical scope.
+    provided to its lexical scope, or attempt to upgrade existing values
+    to specified behavior, accounting for the possibility that such may
+    not be possible if said values are immutable.
 1.  All calls to ``require`` must be by name from lexical scope.
 1.  All calls to ``require`` must be given a single string literal as
     the argument, or the value of ``require.main`` if it is defined.
     *This rule exists to help asynchronous loader implementations
     guarantee that all modules are loaded before they're required.
     String literals are discoverable before execution by scanning the
-    text. The module identified by ``require.main`` is guaranteed to have
-    been loaded axiomatically, so it is a reasonable exception. If you
-    need to load a module identified by a variable or expression, use
-    ``require.async``.*
+    text.
+    The module identified by ``require.main`` is provably already
+    loaded, so it is a reasonable exception.  The scanning for
+    ``require`` calls can occur at different times for production and
+    development to meet the performance and the page-refresh-only
+    requirements of the respective modes.
+    In production, the ``require`` calls can occur in a build step and
+    be used to populate the here unspecified arguments of ``define``
+    with a dependencies array, whereas the ``require`` calls may be
+    scanned by calling ``toString`` on the ``define`` ``callback`` by a
+    client-side loader in development.*
 1.  For interoperability with loaders that support the following cases,
-    modules must call ``define`` in their first and only module scope
-    statement. 
+    modules must call ``define`` to receive ``require``, ``exports``,
+    ``module``, or establish their exports.
     *   When modules must be **debugged when deployed** on a different
         domain than the origin page (perhaps a CDN) in browsers that do
         not support cross-origin HTTP request headers (CORS) or the
@@ -50,16 +59,28 @@ satisfy in order to function in any module system.
     *   modules must be debugged in browsers that do not support
         ``//@sourceURL`` comments **and** (a module build step **or**
         module server that add ``define`` calls are not acceptable).
-1.  ``define`` must be called with a function expression as its
-    argument.  *This permits tools that optimize modules for deployment
-    to browsers to find and inject additional configuration arguments in
-    the ``define`` call*
-1.  Within a ``define`` ``callback``, the variables ``require``,
-    ``exports``, and ``module`` must use the corresponding values
-    provided as arguments to the callback instead of those received from
-    lexical scope.
-1.  The first argument, ``require``, to a ``define`` ``callback`` must
-    be named ``require``.
+1.  ``define`` may be called with either an object or a function
+    ("callback") as its final argument.
+    1.  Within a ``define`` callback, the variables ``require``,
+        ``exports``, and ``module`` must use the corresponding values
+        provided as respective arguments to the callback instead of
+        those received from lexical scope.
+    1.  The first argument, ``require``, to a ``define`` callback must
+        be named ``require``.
+        *Chosing an alternate name would make it impossible for
+        debugging client-side browser module loader to discover a
+        module's dependencies in the context of this specification.*
+1.  In the lexical scope of a module, the name ``define`` is reserved
+    for the module system.
+    *This permits tools that optimize modules for deployment to find the
+    ``define`` call and inject additional initial arguments to relieve
+    responsibilities from the client-side browser module loader.*
+    *Presently, for RequireJS ``define`` must be called with a function
+    expression as its argument, but I hope this will be relaxed.*
+    1.  A call of ``define`` must only exist once in a module's text.
+    1.  ``define`` must only be called once while executing the module.
+    1.  The value of ``define`` when called must be the same value as
+        provided in the lexical scope of the module.
 
 
 Guarantees Made by Module Interpreters
@@ -104,7 +125,7 @@ Guarantees Made by Module Interpreters
         1.  If every ``require`` call returns, ``async`` must call
             ``callback`` with the respective exports for each module
             identifier as its arguments.
-1.  an ``exports`` object must exist in a function's lexical scope.
+1.  An ``exports`` object must exist in a function's lexical scope.
     1.  the ``exports`` object must initially be the same value as
         ``module.exports``.
 1.  A ``module`` object must exist in a function's lexical scope.
@@ -125,13 +146,16 @@ Guarantees Made by Module Interpreters
     1.  The ``module`` object may have a ``directory`` URL relative to
         ``file:///``
         1.  The directory must be the directory containing the ``path``.
-1.  a ``define`` function must exist in a function's lexical scope.
-    1.  ``define`` accepts a function ("callback") as its last argument.
+1.  A ``define`` function must exist in a function's lexical scope.
+    1.  ``define`` accepts a function ("callback") or object ("exports")
+        as its last argument.
     1.  ``callback`` accepts ``require``, ``exports``, and ``module``.
     1.  ``callback`` must be called with the corresponding values from
         the module's lexical scope.
     1.  If ``callback`` returns a value other than ``undefined``, the
         return value must be assigned to ``module.exports``.
+    1.  If ``define`` is called with an "exports" object, the value must
+        be assigned to ``module.exports``.
 
 
 Module Identifiers
