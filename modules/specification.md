@@ -15,6 +15,10 @@ modules.
 Guarantees Made by Module Writers
 =================================
 
+No requirement in this section implies that a module system must enforce
+that requirement.  These are merely requirements that a module must
+satisfy in order to function in any module system.
+
 1.  A module must only read and write variables in its lexical scope.
 1.  A module must only assume that its lexical scope contains the free
     variables ``require``, ``module``, ``exports``, and ``define``
