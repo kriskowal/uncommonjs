@@ -14,6 +14,7 @@ To Do
 1.  tests/all.js (adhering to ../tests/specification.md)
 1.  notes.md (for implementors)
 1.  tutorial.md (for users)
+1.  reference (package with reference implementation)
 
 
 Done
