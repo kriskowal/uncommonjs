@@ -25,14 +25,19 @@ Informative Configuration
     1.  "licenses" may be an array of licenses.  **This property is not
         legally binding and does not necessarily mean your package is
         licensed under the terms you define in this property**
+        1.  The existence of multiple lincenses implies that a user may
+            chose to be bound by any one of them, not that every user
+            must be bound by all.
     1.  "bugs" may be an email address or a URL where bugs issues may be
         tracked.
     1.  "repositories" may be an array of repositories.
 1.  A person can be represented as either a string or an object.
+    *Note: this implies that the string must only contain information
+    representable with an equivalent object.*
     1.  A person string must begin with a name.
-    1.  A person string may contain an email address in angle brackets
-        (``<>``) delimited by a space.
-    1.  A person string may contain a web address in parentheses
+    1.  A person string may then contain one email address in angle
+        brackets (``<>``) delimited by a space.
+    1.  A person string then may contain one web address in parentheses
         (``()``) delimited by a space.
     1.  A person object must contain a "name" property.
     1.  A person object may contain an "email" property with an email
