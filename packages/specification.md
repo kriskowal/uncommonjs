@@ -25,6 +25,9 @@ Informative Configuration
     1.  "licenses" may be an array of licenses.  **This property is not
         legally binding and does not necessarily mean your package is
         licensed under the terms you define in this property**
+        1.  The existence of multiple lincenses implies that a user may
+            chose to be bound by any one of them, not that every user
+            must be bound by all.
     1.  "bugs" may be an email address or a URL where bugs issues may be
         tracked.
     1.  "repositories" may be an array of repositories.
