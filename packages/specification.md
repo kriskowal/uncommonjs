@@ -28,8 +28,13 @@ Informative Configuration
         1.  The existence of multiple lincenses implies that a user may
             chose to be bound by any one of them, not that every user
             must be bound by all.
-    1.  "bugs" may be an email address or a URL where bugs issues may be
-        tracked.
+    1.  "bugs" may be a string or an object.
+        1.  A "bugs" string must be the URL for a site where bugs can be
+            reported.
+        1.  A "bugs" object may have an "email" property with an email
+            address to which bugs can be reported.
+        1.  A "bugs" object may have a "url" property with the URL of a
+            site where bugs can be reported.
     1.  "repositories" may be an array of repositories.
 1.  A person can be represented as either a string or an object.
     *Note: this implies that the string must only contain information
