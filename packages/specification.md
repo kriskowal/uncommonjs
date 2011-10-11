@@ -14,6 +14,10 @@ Informative Configuration
 1.  In ``package.json``, the following apply to the properties of the
     root object.
     1.  "name" may be the name of the package.
+        1.  The name must be a combination of one or more
+            hyphen-delimited lower-case words and numbers.
+    1.  "title" may be the title for the package for human readers, if
+        the package has one.
     1.  "version" may be a string representing a semantic version
         <http://semver.org/>.
     1.  "description" may be a one-line description of the package.
