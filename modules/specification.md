@@ -26,7 +26,7 @@ satisfy in order to function in any module system.
 
     -   *Depending on any other values limits portability to engines
         that do not provide those values and will cause reference errors
-        on those systems*
+        on those systems.*
 
 1.  A module must consider that every object in its scope may be
     immutable.
@@ -185,8 +185,10 @@ Module Identifiers
 1.  A term is either:
 
     1.  any combination of lower-case letters, numbers, and hyphens,
-    1.  "``.``", or
-    1.  "``..``"
+
+    1.  a single dot, "``.``", or
+
+    1.  a double dot, "``..``".
 
 1.  Module identifiers should not have file-name extensions like
     ``.js``.
