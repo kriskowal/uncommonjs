@@ -1,4 +1,8 @@
-
+---
+title: Packages Specification
+layout: default
+---
+ 
 This specification attempts to assimilate most of the points on
 CommmonJS/Packages/1.1.
 

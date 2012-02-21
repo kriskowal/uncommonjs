@@ -1,3 +1,7 @@
+---
+title: Modules Specification
+layout: default
+---
 
 This specification establishes a convention for creating a style of
 reusable JavaScript modules and systems that will load and link those

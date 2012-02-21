@@ -1,3 +1,7 @@
+---
+title: Promises Specification
+layout: default
+---
 
 An asynchronous promise loosely represents the eventual result of a
 function.  A promise is initially "unresolved" and may eventually become

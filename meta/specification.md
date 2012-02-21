@@ -1,3 +1,7 @@
+---
+title: Specification for Specifications
+layout: default
+---
 
 1.  Specifications must be in Markdown format.
 1.  Specifications must be physically wrapped at 72 columns.
