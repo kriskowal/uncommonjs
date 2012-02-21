@@ -189,8 +189,10 @@ Module Identifiers
 1.  A term is either:
 
     1.  any combination of lower-case letters, numbers, and hyphens,
-    1.  "``.``"
-    1.  "``..``"
+
+    1.  a single dot, "``.``", or
+
+    1.  a double dot, "``..``".
 
 1.  Module identifiers should not have file-name extensions like
     ``.js``.
