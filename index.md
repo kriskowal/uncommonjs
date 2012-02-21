@@ -12,8 +12,12 @@ contributor’s coherent vision.
 These are specifications that I presently support.
 
 -   [Modules Specification](modules/specification)
+
 -   [Packages Specification](packages/specification)
+
 -   [Promises Specification](promises/specification)
+
 -   [Unit Testing Specification](tests/specification)
+
     -   [Tutorial](tests/tutorial)
 
