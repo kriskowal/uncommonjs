@@ -20,73 +20,57 @@ that requirement.  These are merely requirements that a module must
 satisfy in order to function in any module system.
 
 1.  A module must be encoded in UTF-8.
-1.  A module must only read and write variables in its lexical scope.
-1.  A module must only assume that its lexical scope contains the free
-    variables ``require``, ``module``, ``exports``, and ``define``
-    beyond those defined by JavaScript.  *What constitutes JavaScript is
-    beyond the scope of this specification and may vary with practical
-    limits on a module's portability.*
-1.  A module must only depend on specified behavior of the values
-    provided to its lexical scope, or attempt to upgrade existing values
-    to specified behavior, accounting for the possibility that such may
-    not be possible if said values are immutable.
-1.  All calls to ``require`` must be by name from lexical scope.
+1.  A module must only assume that its scope contains ``require``,
+    ``exports``, and ``module`` in addition to the globals provided by
+    JavaScript.
+    -   *Depending on any other values limits portability to engines
+        that do not provide those values and will cause reference errors
+        on those systems*
+1.  A module must consider that every object in its scope may be
+    immutable.
+    -   *Depending on the mutability of an object precludes the use of
+        the module in a system that shares its global scope among
+        mutually suspcious programs, like between mashups in a secured
+        JavaScript context.*
+    -   *It may be acceptable to upgrade an object in scope (shim) if it
+        does not provide the needed, specified behavior, but this will
+        limit portability to secure contexts with legacy
+        implementations.*
+1.  A module must only depend on the specified behavior of values in
+    scope.
+    -   *Depending on any extension to the specified behavior limits
+        portability.*
 1.  All calls to ``require`` must be given a single string literal as
     the argument, or the value of ``require.main`` if it is defined.
-    *This rule exists to help asynchronous loader implementations
-    guarantee that all modules are loaded before they're required.
-    String literals are discoverable before execution by scanning the
-    text. The module identified by ``require.main`` is provably already
-    loaded, so it is a reasonable exception.  The scanning for
-    ``require`` calls can occur at different times for production and
-    development to meet the performance and the page-refresh-only
-    requirements of the respective modes.  In production, the
-    ``require`` calls can occur in a build step and be used to populate
-    the here unspecified arguments of ``define`` with a dependencies
-    array, whereas the ``require`` calls may be scanned by calling
-    ``toString`` on the ``define`` ``callback`` by a client-side loader
-    in development.*
-1.  For interoperability with loaders that support the following cases,
-    modules must call ``define`` to receive ``require``, ``exports``,
-    ``module``, or establish their exports.
-    *   When modules must be **debugged when deployed** on a different
-        domain than the origin page (perhaps a CDN) in browsers that do
-        not support cross-origin HTTP request headers (CORS) or the
-        developer cannot configure the deployment server to provide CORS
-        headers.  JavaScript that is deployed in a debuggable form will
-        suffer performance penalties since it would preclude
-        minification and bundling.
-    *   modules must be debugged in browsers that do not support
-        ``//@sourceURL`` comments **and** (a module build step **or**
-        module server that add ``define`` calls are not acceptable).
-1.  ``define`` may be called with either an object or a function
-    ("callback") as its final argument.
-    1.  Within a ``define`` callback, the variables ``require``,
-        ``exports``, and ``module`` must use the corresponding values
-        provided as respective arguments to the callback instead of
-        those received from lexical scope.
-    1.  The first argument, ``require``, to a ``define`` callback must
-        be named ``require``.
-        *Chosing an alternate name would make it impossible for
-        debugging client-side browser module loader to discover a
-        module's dependencies in the context of this specification.*
-1.  In the lexical scope of a module, the name ``define`` is reserved
-    for the module system.
-    *This permits tools that optimize modules for deployment to find the
-    ``define`` call and inject additional initial arguments to relieve
-    responsibilities from the client-side browser module loader.*
-    *Presently, for RequireJS ``define`` must be called with a function
-    expression as its argument, but I hope this will be relaxed.*
-    1.  A call of ``define`` must only exist once in a module's text.
-    1.  ``define`` must only be called once while executing the module.
-    1.  The value of ``define`` when called must be the same value as
-        provided in the lexical scope of the module.
+    -   *If the argument to ``require`` is not a string, the dependency
+        cannot be discovered and asynchronously loaded before executing
+        the module.  This would limit portability to systems that read
+        the text of a module to discover dependencies and load them
+        asynchronously before execution, which is necessary for
+        portability to browsers and other systems that only support
+        asynchronous loading.*
+    -   *``require.main`` is guaranteed to already have been loaded, so
+        it is a reasonable exception to the rule that all dependencies
+        must be discoverable without executing the module.*
+1.  All calls to ``require`` must be by the name ``require``.
+    -   *If ``require`` takes on a different name, the dependency will
+        not be discoverable without executing the module.*
+1.  All calls to ``require`` must be given a module identifier as the
+    argument.
+    -   *Some module loaders may accept values that are not module
+        identifiers.  Depending on this behavior inside a module limits
+        the portability of the module, particularly to systems that use
+        packages to isolate the module identifier name space for a set
+        of modules.*
 
 
 Guarantees Made by Module Interpreters
 ======================================
 
 1.  The top scope of a module must not be shared with any other module.
+    -   *All ``var`` declarations in a module will only be accessible
+        within that module and will not collide with declarations in
+        other modules*
 1.  A ``require`` function must exist in a function's lexical scope.
     1.  The ``require`` function must accept a module identifier as its
         first and only argument.
@@ -122,21 +106,10 @@ Guarantees Made by Module Interpreters
             object.
         1.  The ``module.exports`` property must be writable and
             configurable.
-    1.  The ``module`` object may have a ``path`` URL relative to
-        ``file:///``
-    1.  The ``module`` object may have a ``directory`` URL relative to
-        ``file:///``
-        1.  The directory must be the directory containing the ``path``.
-1.  A ``define`` function must exist in a function's lexical scope.
-    1.  ``define`` accepts a function ("callback") or object ("exports")
-        as its last argument.
-    1.  ``callback`` accepts ``require``, ``exports``, and ``module``.
-    1.  ``callback`` must be called with the corresponding values from
-        the module's lexical scope.
-    1.  If ``callback`` returns a value other than ``undefined``, the
-        return value must be assigned to ``module.exports``.
-    1.  If ``define`` is called with an "exports" object, the value must
-        be assigned to ``module.exports``.
+    1.  The ``module`` object may have a ``location`` absolute URL.
+    1.  The ``module`` object may have a ``directory`` absolute URL.
+        1.  The ``directory`` must be the directory containing the
+            ``location``.
 
 
 Module Identifiers
@@ -176,8 +149,6 @@ interoperability unspecified:
 
 1.  Whether modules are stored with a database, file system, or factory
     functions, or are interchangeable with link libraries.
-1.  Whether a path is supported by the module loader for resolving
-    module identifiers.
-1.  Whether other arguments may be provided to ``define`` and how they
-    are interpreted.
+1.  Whether ``require`` accepts values that are not module identifiers
+    as specified here.
 
