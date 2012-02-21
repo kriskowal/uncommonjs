@@ -189,7 +189,7 @@ Module Identifiers
 1.  A term is either:
 
     1.  any combination of lower-case letters, numbers, and hyphens,
-    1.  "``.``", or
+    1.  "``.``"
     1.  "``..``"
 
 1.  Module identifiers should not have file-name extensions like
