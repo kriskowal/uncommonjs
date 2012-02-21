@@ -1,3 +1,7 @@
+---
+title: Packages Specification
+layout: default
+---
 
 1.  A package is a directory.
 1.  A package must contain a ``package.json`` file.
