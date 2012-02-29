@@ -273,8 +273,11 @@ Log
 ===
 
 1.  A logger object must have a ``pass`` function property.
+
 1.  A logger object must have a ``fail`` function property.
+
 1.  A logger object must have an ``error`` function property.
+
 1.  A logger object must have a ``section`` function property that,
     when called, returns a new logger object.
 
