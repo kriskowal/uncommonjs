@@ -136,7 +136,7 @@ for an assertion module.*
         1.  If ``Error`` is provided, calling ``callback`` must throw
             an error that is an instance of the given ``Error``.
 
-        1.  If ``Error` is not provided, calling ``callback`` must
+        1.  If ``Error`` is not provided, calling ``callback`` must
             throw an exception.
 
     1.  The corresponding ``operator`` for an ``AssertionError`` is
