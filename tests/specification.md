@@ -124,7 +124,7 @@ for an assertion module.*
         ``"!=="``.
 
 1.  The assertion object must have a function
-    ``errror(callback, Error_opt, message_opt)``
+    ``error(callback, Error_opt, message_opt)``
     *Note: in the CommonJS specification, this was named ``throws``,
     however this name was not ergonomic before ECMAScript 5.
     Assertion objects may provide ``throws`` for backward
