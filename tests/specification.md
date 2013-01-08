@@ -204,7 +204,7 @@ for a test runner.*
 
     1.  For each enumerable property of ``tests`` that starts with
         ``"test"``, ``run`` must execute the corresponding test,
-        proceding to the next test only when the previous ends.
+        proceeding to the next test only when the previous ends.
 
         1.  If the corresponding value is a function,
 
