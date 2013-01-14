@@ -124,7 +124,7 @@ for an assertion module.*
         ``"!=="``.
 
 1.  The assertion object must have a function
-    ``errror(callback, Error_opt, message_opt)``
+    ``error(callback, Error_opt, message_opt)``
     *Note: in the CommonJS specification, this was named ``throws``,
     however this name was not ergonomic before ECMAScript 5.
     Assertion objects may provide ``throws`` for backward
@@ -136,7 +136,7 @@ for an assertion module.*
         1.  If ``Error`` is provided, calling ``callback`` must throw
             an error that is an instance of the given ``Error``.
 
-        1.  If ``Error` is not provided, calling ``callback`` must
+        1.  If ``Error`` is not provided, calling ``callback`` must
             throw an exception.
 
     1.  The corresponding ``operator`` for an ``AssertionError`` is
@@ -204,7 +204,7 @@ for a test runner.*
 
     1.  For each enumerable property of ``tests`` that starts with
         ``"test"``, ``run`` must execute the corresponding test,
-        proceding to the next test only when the previous ends.
+        proceeding to the next test only when the previous ends.
 
         1.  If the corresponding value is a function,
 
