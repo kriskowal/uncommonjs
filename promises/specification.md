@@ -1,4 +1,3 @@
-
 An asynchronous promise loosely represents the eventual result of a
 function.  A promise is initially "unresolved" and may eventually become
 "resolved".  A resolution can either be "fulfilled" with a value or
@@ -6,7 +5,7 @@ function.  A promise is initially "unresolved" and may eventually become
 returned values and thrown exceptions respectively.  Once a promise has
 become resolved, it cannot be resolved again, so a promise's fulfillment
 value or rejection reason are guaranteed to be the same across multiple
-observations.  Although the identify of the value or reason cannot
+observations.  Although the identity of the value or reason cannot
 change, their properties may be mutable.
 
 
