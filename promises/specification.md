@@ -157,7 +157,7 @@ Thenable Promise Manager
                 or promise as the resolution.
 
             1.  that must be rejected if and when ``fulfilled`` or
-                ``rejected`` trow an error, with the error as the reason
+                ``rejected`` throw an error, with the error as the reason
                 for rejection.
 
     1.  ``resolve(value)``
